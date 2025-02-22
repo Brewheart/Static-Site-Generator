@@ -33,11 +33,8 @@ class LeafNode(HTMLNode):
             raise ValueError
         if self.tag is None:
             return self.value
-        
-        left_html_tag = ""
-        right_html_tag = ""
-        if self.tag == "p":
-            left_html_tag = "<p>"
-            right_html_tag = "</p>"
-
-        return f"{left_html_tag}{self.value}{right_html_tag}
+        if self.props is None:
+            return f"<{self.tag}>{self.value}</{self.tag}>"
+        else:
+            props_string = self.props_to_html()
+            return f"<{self.tag}{props_string}>{self.value}</{self.tag}>"
